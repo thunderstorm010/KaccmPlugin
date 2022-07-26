@@ -1,9 +1,19 @@
 /*
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+	kaccm plugini - !kaccm - sm_kaccm
+    Copyright (C) 2022 thunderstorm010
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma semicolon 1
@@ -36,7 +46,7 @@ public void OnPluginStart()
 		SetFailState("This plugin is for CSGO/CSS only.");	
 	}
 	
-	g_cvPrefix = CreateConVar("thunderstorm010_kaccm_prefix", "[thunderstorm010/KaccmPlugin]", "Prefix for this plugin");
+	g_cvPrefix = CreateConVar("thunderstorm010_kaccm_prefix", "[SM]", "Prefix for this plugin");
 	RegConsoleCmd("sm_kaccm", Command_KacCm, "Kaccm komutu");
 }
 
@@ -54,7 +64,7 @@ public Action Command_KacCm(int client, int args) {
 		ReplyToCommand(client, " \x0c%s\x01 Malafatının boyunu öğrenmek için \x03%d saniye\x01 daha beklemen gerekiyor.", prefixBuffer, 30-diff);
 		return Plugin_Handled;
 	}
-	PrintToChatAll(" \x0c%s \x06%N\x01, malafatın \x0e%d cm.", prefixBuffer, client, GetRandomInt(1, 31));
+	PrintToChatAll(" \x0e%s \x06%N\x01, malafatın \x0e%d cm.", prefixBuffer, client, GetRandomInt(1, 31));
 	aiPlayersCooldownArray[client] = currentTime;
 	return Plugin_Handled;
 }
