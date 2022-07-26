@@ -14,7 +14,6 @@ You should have received a copy of the GNU General Public License along with thi
 
 #pragma newdecls required
 
-EngineVersion g_Game;
 
 public Plugin myinfo = 
 {
@@ -22,8 +21,12 @@ public Plugin myinfo =
 	author = "thunderstorm010 @ github",
 	description = "kaccm plugini",
 	version = "v1",
-	url = "https://"
+	url = "https://github.com/thunderstorm010/KaccmPlugin"
 };
+
+EngineVersion g_Game;
+ConVar g_cvPrefix;
+
 
 public void OnPluginStart()
 {
@@ -33,6 +36,7 @@ public void OnPluginStart()
 		SetFailState("This plugin is for CSGO/CSS only.");	
 	}
 	
+	g_cvPrefix = CreateConVar("thunderstorm010_kaccm_prefix", "[thunderstorm010/KaccmPlugin]", "Prefix for this plugin");
 	RegConsoleCmd("sm_kaccm", Command_KacCm, "Kaccm komutu");
 }
 
@@ -42,11 +46,15 @@ int aiPlayersCooldownArray[MAXPLAYERS + 1];
 public Action Command_KacCm(int client, int args) {
 	int currentTime = GetTime();
 	int diff = currentTime - aiPlayersCooldownArray[client];
+	
+	char prefixBuffer[128];
+	g_cvPrefix.GetString(prefixBuffer, 128);
+
 	if (diff < 30) {
-		ReplyToCommand(client, "Malafatının boyunu öğrenmek için \x03%d saniye\x01 daha beklemen gerekiyor.", 30-diff);
+		ReplyToCommand(client, " \x0c%s\x01 Malafatının boyunu öğrenmek için \x03%d saniye\x01 daha beklemen gerekiyor.", prefixBuffer, 30-diff);
 		return Plugin_Handled;
 	}
-	PrintToChatAll("\x06%N\x01, malafatın \x0e%d cm.", client, GetRandomInt(1, 31));
+	PrintToChatAll(" \x0c%s \x06%N\x01, malafatın \x0e%d cm.", prefixBuffer, client, GetRandomInt(1, 31));
 	aiPlayersCooldownArray[client] = currentTime;
 	return Plugin_Handled;
 }
